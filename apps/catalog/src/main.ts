@@ -7,12 +7,17 @@ async function bootstrap() {
   process.title = 'Catalog Microservice';
   const logger = new Logger('Catalog Microservice');
   const PORT = process.env.CATALOG_TCP_PORT ?? 4011;
+  const RABBITMQ_URL = process.env.RABBITMQ_URL ?? 'amqp://localhost:5672';
+  const CATALOG_QUEUE = process.env.CATALOG_QUEUE ?? 'catalog_queue';
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(CatalogModule, {
-    transport: Transport.TCP,
+    transport: Transport.RMQ,
     options: {
-      host: '0.0.0.0',
-      port: Number(PORT),
+      urls: [RABBITMQ_URL],
+      queue: CATALOG_QUEUE,
+      queueOptions: {
+        durable: false,
+      },
     },
   });
 
