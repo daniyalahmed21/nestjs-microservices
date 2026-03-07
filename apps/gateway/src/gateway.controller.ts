@@ -3,10 +3,14 @@ import { GatewayService } from './gateway.service';
 
 @Controller()
 export class GatewayController {
-  constructor(private readonly gatewayService: GatewayService) {}
+  constructor(private readonly gatewayService: GatewayService) { }
 
-  @Get()
-  getHello(): string {
-    return this.gatewayService.getHello();
+  @Get('health')
+  healthCheck() {
+    return {
+      ok: true,
+      timestamp: new Date().toISOString(),
+      service: 'gateway',
+    };
   }
 }
