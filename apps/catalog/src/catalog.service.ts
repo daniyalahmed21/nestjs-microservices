@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices';
 
 @Injectable()
 export class CatalogService {
-  getHello(): string {
-    return 'Hello World!';
+  
+  ping() {
+    return {
+      ok: true,
+      timestamp: new Date().toISOString(),
+      service: 'Catalog Service',
+    }
   }
 }
