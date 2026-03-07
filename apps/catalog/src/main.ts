@@ -25,7 +25,7 @@ async function bootstrap() {
 
   await app.listen();
 
-  logger.log(`Catalog Microservice is running on port ${PORT}`);
+  logger.log(`Catalog RMQ Microservice is running on port ${PORT} and queue ${CATALOG_QUEUE}`);
 }
 
 bootstrap();
